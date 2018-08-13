@@ -267,6 +267,7 @@ manera:
 * Usando el método `addEventListener()`
 
 La siguiente es una lista de gestores de eventos
+
 | **Gestor de eventos** | **Descripción de eventos** |
 |-----------------------|----------------------------|
 | `onblur`              | Un elemento pierde el foco |
