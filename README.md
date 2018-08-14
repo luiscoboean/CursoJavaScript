@@ -3,14 +3,14 @@
 JavaScript es un lenguaje de script que se usa frecuentemente para el
 desarrollo web del lado cliente.
 
-JavaScript es una implementación del estatndar ECMAScript, el cuál unicamente
-define la sintaxis y las características del lenguje y un conjunto básco de objetos
+JavaScript es una implementación del estándar ECMAScript, el cuál unicamente
+define la sintaxis y las características del lenguaje y un conjunto básco de objetos
 normalmente usado en los programas: `Number`, `Date`, expresiones regulares, etc.
 
 ## ¿Qué podemos hacer con JavaScript?
-- Manejar inteactividad en las páginas web, es decir, elementos de la interfaz gráfica
+- Manejar interactividad en las páginas web, es decir, elementos de la interfaz gráfica
 de usuarios, como menús, ventanas, gráficos, etc.
-- Maniputlar el contenido de la página web dinámicamente
+- Manipular el contenido de la página web dinámicamente
 - Generar contenido HTML "al vuelo"
 - Hacer validación de formularios
 - AJAX
@@ -367,3 +367,119 @@ de operaciones.
 * Agregar elementos a una página: `createElement`, `createTextNode`, `appendChild`, 
 `insertBefore`.
 * Reemplazar y eliminar elementos: `replaceChild`, `removeChild`
+
+
+## Introducción a JQuery
+[JQuery](http://jquery.com) es un conjunto de funciones y objetos en JavaScript con el propósito de hacer mucho más
+fácil el uso de este lenguaje en el desarrollo de aplicaciones web.
+
+Esta simplificación se da en tres campos principalmente:
+* Recorrer el DOM de la página así como su modificación
+* La gestión de eventos
+* AJAX
+
+### Incluir JQuery en una página web
+* Descargarlo y usarlo localmente
+```javascript
+<head>
+<script src="jquery-3.3.1.min.js"></script>
+</head>
+```
+
+* Usando una CDN global (por ejemplo, el de Google)
+```javascript
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+```
+
+### Programando con JQuery
+Cuando construimos programas con JQuery, seleccionamos (_query_) elementos HTML y luego desarrollamos acciones sobre
+ellos. La sintaxis básica para realizar la selección es: **_$(selector).action()_**
+
+La mayoría de las acciones básicas de una página se aconseja realizarla cuando la página se termina de cargar en
+el navegador. Esto se hace a través del siguiente gestor de eventos:
+```javascript
+$(document).ready(function(){
+
+   // Aquí van las acciones iniciales...
+
+});
+```
+
+#### Selectores
+* Seleccionar todos los elementos por tag: `$("p")`
+* Seleccionar un elemento por Id: `$("#miParrafo")`
+* Seleccionar todos los elementos que pertenecen a una clase: `$(".clase")`
+
+### Eventos
+Para indicarle a un objeto que va a gestionar un evento, se realiza a través de una sintaxis simplificada
+tal como `$(selector).evento(función)`.
+
+* `$(document).ready()` ejecutar una función cuando el documento está totalmente cargado.
+* `click()` cuando el usuario hace click sobre un elemento HTML. Por ejemplo, el siguien código esconde un párrafo
+cuando el usuario hace click sobre él.
+```javascript
+$("p").click(function(){
+  $(this).hide();
+});
+```
+* `dblclick()` cuando el usuario hace doble click sobre un elemento HTML
+* `mouseenter()` cuando el mouse entra en un determinado elemento HTML
+* `mouseleave()` al momento que el mouse sale de un determinado elemento HTML
+* `hover()` toma dos funciones, una cuando el usuario entra al elemento, y la segunda cuando el mouse sale del elemento
+* `focus()` se ejecuta cuando el campo de un formulario obtiene el foco
+* `blur()` se ejecuta cuando el campo de un formulario pierde el foco
+* `on()` para asociar varios gestores de eventos al mismo conjunto de elementos. Ejemplo:
+```javascript
+$("p").on({
+    mouseenter: function(){
+        $(this).css("background-color", "lightgray");
+    }, 
+    mouseleave: function(){
+        $(this).css("background-color", "lightblue");
+    }, 
+    click: function(){
+        $(this).css("background-color", "yellow");
+    } 
+});
+```
+
+### Manipulación del DOM
+* Para obtener el contenido de un elemento HTML usando jQuery tenemos los siguientes métodos
+  - `text()` para obtener o cambiar el contenido textual del elemento
+  - `html()` para obtener o cambiar el contenido del elemento en formato HTML
+  - `val()` para obtener o cambiar el valor de los campos de un formulario
+
+* Ejemplo:
+```javascript
+$("#btn1").click(function(){
+    alert("Texto: " + $("#parrafo").text());
+});
+$("#btn2").click(function(){
+    alert("HTML: " + $("#parrafo").html());
+});
+$("#btn3").click(function(){
+    alert("Valor: " + $("#nombre").val());
+});
+```
+
+* Para obtener el atributo de un elemento, podemos usar el método `attr()` del selector dado
+```javascript
+$("boton").click(function(){
+    $("#imagen").attr("src", "unaFoto.jpg");
+});
+```
+
+### Estilos al estilo jQuery
+Para cambiar u obtener propiedades CSS de un determinado objeto usando jQuery, tenemos el método `css()`. Los siguientes
+ejemplos nos ilustran su uso:
+```javascript
+alert($("#miParrafo").css("color"));
+
+// Cambiar la posicion de un elemento
+$("#laCasa").css("top", posicion + "px");
+
+// También podemos cambiar muchas propiedades al tiempo
+$("#miParrafo").css({"background-color": "yellow", "font-size": "36"}});
+```
