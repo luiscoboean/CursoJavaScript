@@ -483,3 +483,62 @@ $("#laCasa").css("top", posicion + "px");
 // También podemos cambiar muchas propiedades al tiempo
 $("#miParrafo").css({"background-color": "yellow", "font-size": "36"}});
 ```
+
+## Ajax?
+Ajax es un esquema de comunicación entre el un cliente (el browser) y un servidor usando el protocolo HTTP. Usa una combinación de
+
+* Un objeto XMLHttpRequest para solicitar información al servidor
+* Un programa JavaScript y el DOM de HTML para desplegar o usar los datos.
+
+### Cómo trabaja AJAX?
+
+![Figura 4](fig04.png)
+
+* Hay que crear el objeto en el programa JavaScript
+
+```javascript
+var req = new XMLHttpRequest();
+```
+
+#### Métodos de un Objeto XMLHttpRequest
+
+| Método | Descripción |
+|--------|-------------|
+| `abort()` | Cancela el requerimiento actual |
+| `getAllResponseHeaders()` | Obtener la información del encabezado |
+| `getResponseHeader()` | Obtener información específica del encabezado |
+| `open(metodo, url, async, usr, pwd)` | Requerimiento |
+| `send()` | Envia el requerimiento al sevidor |
+| `send(req)` | Envia el requerimiento al servidor |
+| `setRequestHeader()` | Agregar un par variable/valor en el encabezado a ser enviado |
+
+#### La propiedad onreadystatechange
+
+Define una función que se va a invocar cuando la propiedad `readyState` cambia. Podemo además usar las propiedades siguientes:
+
+* `readyState`: Contiene el estado actual del requerimiento. Es un número y puede ser alguno de los siguientes:
+- 0: Requerimiento no inicializado
+- 1: Se estableción conexión con el servidor
+- 2: Se recibió el requerimiento en el lado servidor
+- 3: El servidor está procesando el requerimiento
+- 4: El requerimiento finalizó y la respuesta está lista
+* `status`: Puede ser alguna de las siguientes:
+- 200: Todo bien
+- 403: Página prohibida
+- 404: Pàgina no encontrada
+* `statusText`: mensaje correspondiente al `status` anterior.
+
+```javascript
+function traerInformacion() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("info").innerHTML = this.responseText;
+       }
+    };
+    xhttp.open("GET", "programa.asp", true);
+    xhttp.send(); 
+}
+```
+
+
