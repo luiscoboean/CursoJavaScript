@@ -541,4 +541,47 @@ function traerInformacion() {
 }
 ```
 
+### Ajax en jQuery
 
+jQuery también simplifica la construcción de requerimientos en Ajax. Para ello nos brinda los siguientes métodos:
+
+* `$(selector).load(URL, datos, función)`: trae datos desde el servidor en los objetos seleccionados.
+
+```javascript
+$("traerDatos").click(function(){
+    $("#div1").load("infoProducto.aspx", function(responseTxt, statusTxt, xhr){
+        if(statusTxt == "success")
+            alert("Información obtenida correctamente!");
+        if(statusTxt == "error")
+            alert("Error: " + xhr.status + ": " + xhr.statusText);
+    });
+});
+```
+
+* `$.get(URL, función)`: para realizar un requerimiento GET al servidor
+
+```javascript
+$("boton").click(function(){
+    $.get("demo.asp", function(data, status){
+        alert("Datos: " + data + "\nStatus: " + status);
+    });
+});
+```
+
+* `$.post(URL, datos, función)`: envía un requerimiento al servidor usando el método POST
+
+```javascript
+$("agregar").click(function(){
+    $.post("agregarProducto.asp",
+    {
+        nombre: nom,
+        cantidad: cant
+    },
+    function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
+    });
+});
+```
+
+* `$.ajax(opciones)`: desarrolla un requerimiento AJAX de forma asincrónica. Es mucho más específica y entre las opciones se pueden
+indicar las siguientes: `async`, `data`, `type`, `success`, etc.
